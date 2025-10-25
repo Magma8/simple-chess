@@ -7,6 +7,6 @@ public class ChessBoard : MonoBehaviour
 
     private void Start()
     {
-        Grid squaresGrid = new Grid(8, 8, darkSquareMat, lightSquareMat, transform);
+        Grid chessBoard = new Grid(8, 8, darkSquareMat, lightSquareMat, transform);
     }
 }

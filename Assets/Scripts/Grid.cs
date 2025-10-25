@@ -8,13 +8,16 @@ public class Grid
     private Material darkSquareMat;
     private Material lightSquareMat;
 
+    public GameObject[,] squares;
+
     public Grid(int ranks, int files, Material darkSquareMat, Material lightSquareMat, Transform parent)
     {
         this.ranks = ranks;
         this.files = files;
-        filesAndRanks = new int[files, ranks];
         this.lightSquareMat = lightSquareMat;
         this.darkSquareMat = darkSquareMat;
+        filesAndRanks = new int[files, ranks];
+        squares = new GameObject[files, ranks];
 
         bool squareColor = false;
 
@@ -22,14 +25,14 @@ public class Grid
         {
             for (int j = 0; j < filesAndRanks.GetLength(1); j++)
             {
-                SpawnSquare(FindFileName(i) + (j + 1).ToString(), parent, new Vector3(i, 0, j), squareColor);
+                squares[i, j] = SpawnSquare(FindFileName(i) + (j + 1).ToString(), parent, new Vector3(i, 0, j), squareColor);
                 squareColor = !squareColor;
             }
             squareColor = !squareColor;
         }
     }
 
-    private void SpawnSquare(string squareName, Transform parent, Vector3 localPosition, bool squareColor)
+    private GameObject SpawnSquare(string squareName, Transform parent, Vector3 localPosition, bool squareColor)
     {
         GameObject newSquare = GameObject.CreatePrimitive(PrimitiveType.Cube);
         newSquare.name = squareName;
@@ -37,6 +40,8 @@ public class Grid
         newSquare.GetComponent<MeshRenderer>().material = squareColor ? lightSquareMat : darkSquareMat;
         newSquare.transform.SetParent(parent, false);
         newSquare.transform.SetLocalPositionAndRotation(localPosition, Quaternion.identity);
+
+        return newSquare;
     }
 
     private string FindFileName(int n)
