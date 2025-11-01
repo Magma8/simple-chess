@@ -3,5 +3,6 @@ using UnityEngine;
 public class ChessPiece : MonoBehaviour
 {
     protected GameObject currentSquare;
-    protected GameObject moveableSqures;
+    protected GameObject[] moveableSqures;
+    protected bool isSelected = false;
 }
